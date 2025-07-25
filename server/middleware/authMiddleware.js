@@ -16,14 +16,15 @@ import User from "../models/User.js";
 
 export const protect = async (req, res, next) => {
   try {
-    // Ensure req.auth is an object, not a function, unless you're certain!
-    const userId = req.auth?.userId || (typeof req.auth === 'function' ? req.auth().userId : undefined);
-
+    
+    const userId = req.auth() ?.userId || (typeof req.auth() === 'function' ? req.auth().userId : undefined);
+             console.log(userId);
     if (!userId) {
       return res.status(401).json({ success: false, message: "Not authenticated" });
     }
 
     const user = await User.findById(userId);
+    console.log(user);
     if (!user) {
       return res.status(401).json({ success: false, message: "User not found" });
     }

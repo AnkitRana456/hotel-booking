@@ -5,9 +5,11 @@ export const getUserData = async () =>{
     try{
         const role = req.user.role;
         const recentSearchedCities = req.user.recentSearchedCities;
-        resizeBy.json({success: true, role, recentSearchedCities})
+        console.log("avdkvndsklvn");
+        res.json({success: true, role, recentSearchedCities})
         
     }catch(error){
+        console.log("abcg");
              res.json({success: false, message: error.message})
     }
 }

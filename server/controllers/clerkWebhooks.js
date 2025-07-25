@@ -5,15 +5,24 @@ const clerkWebhooks =async (req,res) =>{
     try{
         const whook= new Webhook(process.env.CLERK_WEBHOOK_SECRET)
 
+             
         const headers= {
             "svix-id": req.headers["svix-id"],
             "svix-timestamp": req.headers["svix-timestamp"],
             "svix-signature" : req.headers["svix-signature"],
         };
 
+        console.log("absbxjsc");
+
         await whook.verify(JSON.stringify(req.body), headers)
+           
 
         const {data,type} =req.body
+
+       
+
+            console.log(data);
+            console.log(type);
 
         const userData= {
             _id: data.id,
@@ -25,7 +34,7 @@ const clerkWebhooks =async (req,res) =>{
 
         switch (type) {
             case "user.created" : {
-                    await User.create(userData);
+                     await User.create(userData);
                     break;
 
             }
@@ -47,6 +56,7 @@ const clerkWebhooks =async (req,res) =>{
                
                 break;
         }
+
         res.json({success: true, message: "Webhook Received"})
 
     } catch (error){
@@ -56,3 +66,7 @@ const clerkWebhooks =async (req,res) =>{
 }
 
 export default clerkWebhooks;
+
+
+
+
