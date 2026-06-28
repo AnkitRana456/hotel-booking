@@ -3,6 +3,7 @@
 import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
+import { sendEmail, getBookingConfirmationTemplate } from "../services/mailService.js";
 
 
 const checkAvailability = async ({checkInDate, checkOutDate, room})=>{
@@ -103,7 +104,7 @@ export const getUserBookings = async (req, res) => {
 
 export const getHotelBookings = async (req, res) => {
   try {
-    const hotel = await Hotel.findOne({ owner: req.auth.userId });
+    const hotel = await Hotel.findOne({ owner: req.user._id });
     
     if (!hotel) {
       return res.json({ success: false, message: "No Hotel found" });
@@ -125,6 +126,45 @@ export const getHotelBookings = async (req, res) => {
     });
   } catch (error) {
     res.json({ success: false, message: "Failed to fetch bookings" });
+  }
+};
+
+export const payBooking = async (req, res) => {
+  try {
+    const { bookingId } = req.body;
+    const booking = await Booking.findById(bookingId)
+      .populate("user")
+      .populate("hotel")
+      .populate("room");
+
+    if (!booking) {
+      return res.json({ success: false, message: "Booking not found" });
+    }
+    if (booking.user._id !== req.user._id) {
+      return res.status(403).json({ success: false, message: "Unauthorized to pay this booking" });
+    }
+
+    booking.isPaid = true;
+    booking.status = "confirmed";
+    await booking.save();
+
+    // Send confirmation email to user's registered email address
+    const emailHtml = getBookingConfirmationTemplate(
+      booking,
+      booking.hotel,
+      booking.room,
+      booking.user.username
+    );
+
+    await sendEmail({
+      to: booking.user.email,
+      subject: "Hotel Booking Details",
+      html: emailHtml
+    });
+
+    res.json({ success: true, message: "Payment successful and booking email sent." });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
   }
 };
 

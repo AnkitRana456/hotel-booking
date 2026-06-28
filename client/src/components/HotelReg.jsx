@@ -23,20 +23,9 @@ const HotelReg = () => {
     //   return;
     // }
 
-    let token;
-try {
-  token = await getToken();
-} catch (err) {
-  toast.error("Token retrieval failed");
-  return;
-}
+
     const { data } = await axios.post(`/api/hotels`,
-      { name, contact, address, city },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+      { name, contact, address, city }
     );
 
     if (data.success) {
