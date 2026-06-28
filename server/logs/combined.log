@@ -143,3 +143,11 @@
 {"level":"info","message":"[CRON] Background schedule jobs registered successfully.","service":"hotel-booking-service","timestamp":"2026-06-28 22:48:33"}
 {"level":"info","message":"Server running on port 3000 in development mode","service":"hotel-booking-service","timestamp":"2026-06-28 22:48:33"}
 {"level":"info","message":"[MOCK MAIL SEND] To: owner.greatstack@gmail.com | Subject: Hotel Booking Details","service":"hotel-booking-service","timestamp":"2026-06-28 22:48:44"}
+{"level":"info","message":"[CRON] Background schedule jobs registered successfully.","service":"hotel-booking-service","timestamp":"2026-06-28 22:48:52"}
+{"level":"info","message":"Server running on port 3000 in development mode","service":"hotel-booking-service","timestamp":"2026-06-28 22:48:52"}
+{"level":"info","message":"[HTTP] GET /api/bookings/user","service":"hotel-booking-service","timestamp":"2026-06-28 22:49:32"}
+{"level":"info","message":"[HTTP] GET /api/user","service":"hotel-booking-service","timestamp":"2026-06-28 22:49:34"}
+{"level":"info","message":"[HTTP] GET /api/rooms/67f7647c197ac559e4089b96","service":"hotel-booking-service","timestamp":"2026-06-28 22:49:36"}
+{"level":"info","message":"[HTTP] GET /api/rooms/67f7647c197ac559e4089b96","service":"hotel-booking-service","timestamp":"2026-06-28 22:49:38"}
+{"level":"info","message":"[CRON] Background schedule jobs registered successfully.","service":"hotel-booking-service","timestamp":"2026-06-28 22:52:07"}
+{"level":"info","message":"Server running on port 3000 in development mode","service":"hotel-booking-service","timestamp":"2026-06-28 22:52:07"}
